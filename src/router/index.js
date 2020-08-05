@@ -1,29 +1,54 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Hot from '@/components/Hot'
+
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+const routes = [ //路由配置
+	{
+		path: '/music',
+		component: () => import('@/views/Music'),
+		redirect: '/music/hot',
+		
+		children: [
+			{
+				path: 'hot',
+				component: () => import('@/components/Hot'),
+			},
+			{
+				path: 'recommended',
+				component: () => import('@/components/Recommended'),
+			},
+			{
+				path:'detail',
+				component: () => import('@/views/Music/detail')
+			},
+			{
+				path:'songlist',
+				component: () => import('@/views/Music/songlist')
+			}
+		]
+	},
+	{
+		path: '/mv',
+		component: () => import('@/views/Mv'),
+	},
+	{
+		path:'/mv/mvdetail',
+		component: () => import('@/views/mvdetail')
+	},
+	{
+		path: '*',
+		redirect: '/music/hot'
+	},
+	
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes
 })
 
 export default router
