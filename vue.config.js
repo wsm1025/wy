@@ -10,5 +10,6 @@ module.exports = {
 			// 	target: '<other_url>'
 			// }
 		}
-	}
+	},
+  publicPath: process.env.NODE_ENV === "production" ? "/home/wy" : "/"
 }

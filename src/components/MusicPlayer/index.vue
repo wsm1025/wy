@@ -1,6 +1,6 @@
 <template>
 	<div id="player"  ref="player">
-		<div id="song" @click="set"><img :src="$store.state.music.songImg" :key="$store.state.music.songId"></div>
+		<div id="song" @click="set"><img :src="$store.state.music.songImg" @mouseenter="jump" :key="$store.state.music.songId"></div>
 		<div v-show="Playshow" class="selcet"><span><i class="iconfont icon-shangyishou"></i></span><span><i class="iconfont icon-zanting"></i></span><span><i
 				 class="iconfont icon-xiayishou"></i></span></div>
 	</div>

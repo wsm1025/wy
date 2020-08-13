@@ -21,7 +21,7 @@
 			return {
 				song: [],
 				url: '',
-				play: false
+				play: false,
 			}
 		},
 		activated() {
@@ -29,7 +29,7 @@
 				url: `https://api.vvhan.com/api/music?id=${this.$store.state.music.songId}&type=song&media=netease`
 			}).then(res => {
 				this.song = res.data
-			});
+			})
 			this.play = true;
 			var id = window.localStorage.getItem('songId')
 			this.url = `https://api.itooi.cn/netease/url?id=${id}&quality=flac&isRedirect=1`;

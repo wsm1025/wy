@@ -1,9 +1,10 @@
 <template>
 	<div>
 		<ul class="list">
-			<li style="display: flex;" v-for="n in this.$store.state.music.backSong" @click="set(n.id)" :key="n.id">
-				<p>歌手:{{n.artists[0].name}}</p>
-				<p>歌曲:{{n.name}}</p>
+			<li style="display: flex;" v-for="n in this.$store.state.music.backSong" :key="n.id">
+				<p @click="set(n.id)">歌手:{{n.artists[0].name}}</p>
+				<p @click="set(n.id)">歌曲:{{n.name}}</p>
+				<span v-show="n.mvid>0" class="MVINFO" @click="tomv(n.mvid)" >MV</span>
 			</li>
 		</ul>
 	</div>
@@ -33,6 +34,13 @@
 				setTimeout(()=>{
 				this.$router.push("./detail")	
 				},200)
+			},
+			tomv(id){
+				this.$store.commit('music/MV_INFO', {
+					id
+				});
+				window.localStorage.setItem('Mvid', id);
+				this.$router.push("/mv/mvdetail");
 			}
 			
 		}
@@ -65,5 +73,9 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+	.MVINFO{
+		font-size: 18px;
+		color: black;
 	}
 </style>
