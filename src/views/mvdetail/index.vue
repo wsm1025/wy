@@ -111,7 +111,7 @@
 	}
 
 	video {
-		margin-top: 40px;
+		margin-top: 20px;
 	}
 	
 	.list li{

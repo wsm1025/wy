@@ -116,7 +116,6 @@
 		display: block;
 		width: 53px;
 		height: 53px;
-		border: 1px solid red;
 		border-radius: 50%;
 	}
 	.list li p{
@@ -124,5 +123,6 @@
 		width: 45%;
 		height: 53px;
 		margin-left: 1px;
+		overflow: hidden;
 	}
 </style>

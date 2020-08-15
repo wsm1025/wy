@@ -77,13 +77,6 @@
 					}).then(res => {
 						this.key = '';
 						var backSong = res.data.result.songs;
-						// for(var n in backSong){
-						// 	const id = backSong[n].id;
-						// 	const name = backSong[n].name;
-						// 	const songname = backSong[n].artists[0].name;
-						// 	 this.$store.commit('music/BACK_INFO',{id,name,songname});
-						// 	 // console.log(id,name,songname)
-						// }
 						this.$store.commit('music/BACK_INFO',{backSong});
 						window.localStorage.setItem('Backsong',JSON.stringify(backSong));
 					})

@@ -14,8 +14,6 @@ import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI);
 
-import Scroller from '@/components/Scoller'
-Vue.component('Scroller',Scroller);
 Vue.config.productionTip = false
 
 new Vue({

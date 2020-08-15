@@ -10,7 +10,7 @@
 		</div>
 		<div>
 			<ul v-infinite-scroll="load" infinite-scroll-distance="60" infinite-scroll-immediate-check="false" style="overflow:inherit">
-				<li @click="getId(n.id)" class="list" v-for="n in recommendedlist">
+				<li @click="getId(n.id)" class="list" v-for="n in recommendedlist" :key="n.id">
 					<img class="liimg" :src="n.coverImgUrl" alt="" />
 					<p class="des">{{n.name}}</p>
 					<p class="play"><span>{{n.playCount | playCount}}</span>万人次播放</p>
@@ -64,13 +64,13 @@
 		methods: {
 			load() {
 				setTimeout(() => {
-					if (this.page >64) {
+					if (this.page >32) {
 						this.ok = false;
 						this.out = true;
 						return 0;
 					} else {
 						this.page += 6;
-						if (this.recommendedlist.length >= 72) {
+						if (this.recommendedlist.length >= 36) {
 							return;
 						}
 						this.axios({
@@ -94,7 +94,7 @@
 			},
 			getId(id){
 					this.$router.push("./songlist")
-					console.log(id);
+					// console.log(id);
 					window.localStorage.setItem('listId',id);
 			}
 		}
@@ -125,6 +125,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		text-align: center;
 	}
 
 	.liimg {

@@ -64,15 +64,17 @@
 		height: 50px;
 		border: 1px dotted #ccc;
 		border-radius: 6px;
+		margin-top: 2px;
 	}
 
 	.list li p {
 		float: left;
 		width: 45%;
-		height: 53px;
+		height: 50px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		line-height: 50px;
 	}
 	.MVINFO{
 		font-size: 18px;

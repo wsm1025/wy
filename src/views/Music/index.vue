@@ -74,5 +74,6 @@
 
 	.myactive {
 		color: red;
+		border-bottom:3px solid red;
 	}
 </style>

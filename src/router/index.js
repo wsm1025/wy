@@ -39,6 +39,10 @@ const routes = [ //路由配置
 		component: () => import('@/views/mvdetail')
 	},
 	{
+		path:'/userinfo',
+		component: () => import('@/views/userInfo')
+	},
+	{
 		path: '*',
 		redirect: '/music/hot'
 	},

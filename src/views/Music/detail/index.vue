@@ -77,6 +77,7 @@
 
 	.icon-fanhui {
 		font-size: 30px;
+		margin-left: 3px;
 		color: black;
 		z-index: 2;
 	}

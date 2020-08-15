@@ -77,7 +77,6 @@
 	.search-text {
 		display: flex;
 		width: 100%;
-		margin-left: 10px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		background-color: #eeeeee;

@@ -1,8 +1,11 @@
 <template>
-		<div v-if="loading" style="text-align: center;">热门评论加载中...</div>
-		<div v-else style="width: 100%; height: auto;" >
-			<p class="header" @click="pick(list.id,list.picUrl)">{{list.name}}({{list.auther}})下的留言</p>
-			<p class="content" @click="bush">{{list.content}}</p>
+		<div class="wy">
+			<div v-show="show" style="color: pink; padding: 20px;"><span @click="to()">点击查看用户信息</span><span style="float: right; color: #000000; cursor: pointer;" @click="cancel">X</span></div>
+			<div v-if="loading" style="text-align: center;">热门评论加载中...</div>
+			<div v-else style="width: 100%; height: auto;" >
+				<p class="header" @click="pick(list.id,list.picUrl)">{{list.name}}({{list.auther}})下的留言</p>
+				<p class="content" @click="bush">{{list.content}}</p>
+			</div>
 	    </div>
 </template>
 
@@ -12,7 +15,8 @@
 		data() {
 			return {
 				list: [],
-				loading : true
+				loading : true,
+				show:true
 			}
 		},
 		mounted() {
@@ -39,6 +43,12 @@
 				}).then(res => {
 					this.list = res.data.data;
 				})
+			},
+			cancel(){
+				this.show = false
+			},
+			to(){
+				this.$router.push("/userinfo") 
 			}
 		}
 	}
@@ -50,7 +60,7 @@
 		padding: 0;
 	}
 
-	div {
+	.wy div {
 		border: 1px dotted bisque;
 		margin-top: 10px;
 	}

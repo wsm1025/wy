@@ -1,6 +1,6 @@
 <template>
 	<div id="player"  ref="player">
-		<div id="song" @click="set"><img :src="$store.state.music.songImg" @mouseenter="jump" :key="$store.state.music.songId"></div>
+		<div id="song" @click="jump"><img :src="$store.state.music.songImg" :key="$store.state.music.songId"></div>
 		<div v-show="Playshow" class="selcet"><span><i class="iconfont icon-shangyishou"></i></span><span><i class="iconfont icon-zanting"></i></span><span><i
 				 class="iconfont icon-xiayishou"></i></span></div>
 	</div>
@@ -15,15 +15,15 @@
 			}
 		},
 		methods: {
-			set() {
-				if (!this.Playshow) {
-					this.$refs.player.style.width = '300px'
-				} else {
-					this.$refs.player.style.width = '0'
-				}
-				this.$nextTick();
-				this.Playshow = !this.Playshow
-			},
+			// set() {
+			// 	if (!this.Playshow) {
+			// 		this.$refs.player.style.width = '300px'
+			// 	} else {
+			// 		this.$refs.player.style.width = '0'
+			// 	}
+			// 	this.$nextTick();
+			// 	this.Playshow = !this.Playshow
+			// },上一首，，下一首
 			jump() {
 				this.$router.push("./detail")
 			}

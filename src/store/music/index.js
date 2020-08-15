@@ -2,7 +2,8 @@ const state = {
 	songId :window.localStorage.getItem("songId") || '',
 	songImg : window.localStorage.getItem("songImg")||'http://p1.music.126.net/swcW0FE-__ihfjnJqU22Qg==/109951164696345792.jpg',
     backSong :JSON.parse(window.localStorage.getItem("Backsong")) || [],
-	MVID: window.localStorage.getItem('Mvid') || ''
+	MVID: window.localStorage.getItem('Mvid') || '',
+	USERID: window.localStorage.getItem("userId") || '1311290730'
 };
 
 const actions = {
@@ -18,6 +19,9 @@ const mutations = {
 	},
 	MV_INFO(state,payload){
 		state.MVID = payload.MVID;
+	},
+	USER_INFO(state,payload){
+		state.USERID = payload.USERID;
 	}
 };
 export default{
