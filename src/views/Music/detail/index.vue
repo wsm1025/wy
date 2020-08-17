@@ -1,16 +1,34 @@
 <template>
 	<div class="box slide-enter">
 		<p style=" font-size: 20px; position: absolute;left: 45%;">音乐</p>
-		<span><i class="iconfont icon-fanhui" @click="back"></i></span>
+		<span class="back"><i class="iconfont icon-fanhui" @click="back"></i></span>
 		<div class="song">
 			<img :src="$store.state.music.songImg" alt="" />
 			<p>{{song.name}}</p>
 			<p>{{song.author}}</p>
 		</div>
-		<audio controls loop style="width: 100%; height:120px;" v-if="play">
-			<source :src="url" type="audio/mpeg">
-			您的浏览器不支持 audio 元素。
-		</audio>
+		<!-- <div>
+			<p style="font-size: 20px; padding: 10px; text-align: center; border-top: 1px dotted gray;">一些评论</p>
+			<ul class="list">
+				<li v-for="n in list1" :key="n.time">
+					<div style="display: flex;">
+						<img :src="n.user.avatarUrl" alt="" />
+						<span>name:{{n.user.nickname}}</span>
+					</div>
+					<div>saying:{{n.content}}</div>
+				</li>
+			</ul>
+			<p style="font-size: 20px; padding: 10px; text-align: center;">热门评论</p>
+			<ul class="list">
+				<li v-for="n in list" :key="n.time">
+					<div style="display: flex;">
+						<img :src="n.user.avatarUrl" alt="" />
+						<span>name:{{n.user.nickname}}</span>
+					</div>
+					<div>saying:{{n.content}}</div>
+				</li>
+			</ul>
+		</div> -->
 	</div>
 </template>
 
@@ -20,8 +38,8 @@
 		data() {
 			return {
 				song: [],
-				url: '',
-				play: false,
+				list:[],
+				list1:[]
 			}
 		},
 		activated() {
@@ -32,14 +50,23 @@
 			})
 			this.play = true;
 			var id = window.localStorage.getItem('songId')
-			this.url = `https://api.itooi.cn/netease/url?id=${id}&quality=flac&isRedirect=1`;
+			let URL = `https://api.itooi.cn/netease/url?id=${id}&quality=flac&isRedirect=1`;
+			window.localStorage.setItem('musicurl',URL);
+			this.music(URL);
+			
+			
+			// this.axios({url:`https://api.itooi.cn/netease/comment/song?id=${id}&page=0&pageSize=30`}).then(res=>{
+			// 	this.list = res.data.data.hotComments;
+			// 	this.list1  = res.data.data.comments;
+			// })
 		},
 		methods: {
 			back() {
 				this.$router.back();
-				this.url = '';
-				this.play = false;
 			},
+			music(URL){
+			   this.$store.commit('music/URL_INFO',{URL});//加{}
+			}
 		}
 	}
 </script>
@@ -64,7 +91,7 @@
 		animation: .3s slideMove;
 	}
 
-	.slide-enter span {
+	.back {
 		position: absolute;
 		display: block;
 		top: 0;
@@ -100,4 +127,22 @@
 	.song p {
 		text-align: center;
 	}
+	/* .list li{
+		display: block;
+		width: 100%;
+		height: auto;
+		margin-top: 2px;
+		border: 1px dotted #ccc;
+		border-radius: 6px;
+	}
+	.list li img{
+		width: 53px;
+		height: 53px;
+		border-radius: 50%;
+	}
+	.list li span{
+		margin-left: 30px;
+		font-size: 15px;
+		line-height: 45px;
+	} */
 </style>

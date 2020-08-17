@@ -125,7 +125,6 @@
 	.list li img{
 		width: 53px;
 		height: 53px;
-		border: 1px solid red;
 		border-radius: 50%;
 	}
 	.list li span{

@@ -21,6 +21,7 @@
 <script>
 	import TabBar from '@/components/TabBar'
 	import Header from '@/components/Header'
+	import player from '@/components/Player'
 	export default {
 		name: 'music',
 		data() {
@@ -32,6 +33,7 @@
 		components: {
 			TabBar,
 			Header,
+			player
 		},
 		mounted() {
 			window.addEventListener('scroll', this.set, true)

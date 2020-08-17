@@ -1,25 +1,42 @@
-# vue-music-w
+# vue-music-w 
+### author : taizonga
 
-## Project setup
+## 安装依赖
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 运行
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 打包程序
 ```
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### 更新
-1. 2020年8月13日21:45:41  返回的歌曲数据检测是否含有mv，并提供跳转
-2. 修复已知bug
+# 须知
+```
+此应用在移动端使用最佳
+作者未进行电脑端优化
+电脑端请打开模拟手机端进行享用
+```
+---
+##### ps:小白入门
+---
+## 更新
+ #### 2020年8月13日21:45:41  
+- 返回的歌曲数据检测是否含有mv，并提供跳转
+- 修复已知bug
 
-1. 2020年8月15日15:38:18  添加个人信息，与现有组件结合
+#### 2020年8月15日15:38:18  
+- 添加个人信息，与现有组件结合
+
+#### 2020年8月17日15:32:15 
+- 添加音乐后台播放，不需要到detail页面点击播放 
+- 将播放器封装为组件，仅在music和userinfo下调用
+- 新增暂停播放按钮 
+- ~~音乐评论开启~~
+- detail歌词稍后继续更新

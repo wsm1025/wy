@@ -18,7 +18,7 @@
 		name: 'tabbar',
 		components:{
 			MusicPlayer
-		}
+		},
 	}
 </script>
 

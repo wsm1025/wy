@@ -1,8 +1,6 @@
 <template>
-	<div id="player"  ref="player">
+	<div id="player" ref="player">
 		<div id="song" @click="jump"><img :src="$store.state.music.songImg" :key="$store.state.music.songId"></div>
-		<div v-show="Playshow" class="selcet"><span><i class="iconfont icon-shangyishou"></i></span><span><i class="iconfont icon-zanting"></i></span><span><i
-				 class="iconfont icon-xiayishou"></i></span></div>
 	</div>
 </template>
 
@@ -25,7 +23,7 @@
 			// 	this.Playshow = !this.Playshow
 			// },上一首，，下一首
 			jump() {
-				this.$router.push("./detail")
+				this.$router.push("/music/detail")
 			}
 		}
 	}
@@ -52,24 +50,5 @@
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
-	}
-
-	.selcet {
-		position: absolute;
-		background-color: white;
-		display: flex;
-		top: 0%;
-		height: 52px;
-		width: 100%;
-	}
-
-	.selcet span {
-		display: block;
-		width: 100%;
-	}
-
-	.selcet span i {
-		font-size: 45px;
-		margin-left: 20px;
 	}
 </style>

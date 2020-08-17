@@ -1,26 +1,35 @@
 <template>
-	<keep-alive>
-		<router-view v-if="isRouterAlive"></router-view>
-	</keep-alive>
+	<div>
+		<keep-alive>
+			<router-view></router-view>
+		</keep-alive>
+		<player v-show="ispath" ref="player"/>
+	</div>
 </template>
 <script>
+	import player from '@/components/Player'
 	export default {
-		provide() {
-			return {
-				reload: this.reload()
+		data(){
+			return{
+				ispath:true
 			}
 		},
-		data() {
-			return {
-				isRouterAlive: true
-			}
+		components:{
+			player
 		},
-		methods: {
-			reload() {
-				this.isRouterAlive = false;
-				this.$nextTick(function() {
-					this.isRouterAlive = true
-				})
+		watch:{
+			'$route':'path'
+		},
+		methods:{//监听路由变化，对音乐进行操作
+			path(){
+				// console.log(this.$route.path)
+				if(this.$route.path == '/mv' || this.$route.path == '/mv/mvdetail'){
+					this.$refs.player.$el.firstChild.pause();
+					this.ispath = false
+				}else{
+					// this.$refs.player.$el.firstChild.play();
+					this.ispath = true
+				}
 			}
 		}
 	}
