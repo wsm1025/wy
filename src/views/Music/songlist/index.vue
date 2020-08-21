@@ -36,9 +36,7 @@
 				this.$store.commit('music/MUSIC_INFO',{songId,songImg});
 				window.localStorage.setItem('songId',songId);
 				window.localStorage.setItem('songImg',songImg);
-				setTimeout(()=>{
-				this.$router.push("./detail")	
-				},300)
+				this.$router.push("./detail");
 			}
 			// deal(data){
 			// 	for(var n in data){

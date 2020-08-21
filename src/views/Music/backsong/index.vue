@@ -6,6 +6,7 @@
 				<p @click="set(n.id)">歌曲:{{n.name}}</p>
 				<span v-show="n.mvid>0" class="MVINFO" @click="tomv(n.mvid)" >MV</span>
 			</li>
+			<p style="height: 67px; text-align: center; line-height: 67px;">我也是有底线的啊</p>
 		</ul>
 	</div>
 </template>
@@ -79,5 +80,6 @@
 	.MVINFO{
 		font-size: 18px;
 		color: black;
+		line-height: 50px;
 	}
 </style>

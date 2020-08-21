@@ -4,7 +4,10 @@ const state = {
     backSong :JSON.parse(window.localStorage.getItem("Backsong")) || [],
 	MVID: window.localStorage.getItem('Mvid') || '',
 	USERID: window.localStorage.getItem("userId") || '1311290730',
-	URL: window.localStorage.getItem("musicurl")|| ''
+	URL: window.localStorage.getItem("musicurl")|| '',
+	TIME: window.localStorage.getItem("time"),
+	totime:window.localStorage.getItem('totime'),
+	duration: window.localStorage.getItem('duration')
 };
 
 const actions = {
@@ -26,6 +29,15 @@ const mutations = {
 	},
 	URL_INFO(state,payload){
 		state.URL = payload.URL;
+	},
+	TIME_INFO(state,payload){
+		state.TIME = payload.TIME;
+	},
+	TOTIME(state,payload){
+		state.totime = payload.totime;
+	},
+	Duration(state,payload){
+		state.duration = payload.duration;
 	}
 };
 export default{
