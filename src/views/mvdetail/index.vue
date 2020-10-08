@@ -2,8 +2,8 @@
 	<div class="box slide-enter" ref="mv">
 		<p style=" font-size: 20px; position: absolute;left: 45%;">Mv</p>
 		<span class="back"><i class="iconfont icon-fanhui" @click="back"></i></span>
-		<video width="100%" height="240" controls :key="id">
-			<source :src="url" type="video/mp4" v-show="play">
+		<video width="100%" height="240" controls :key="id" :src="url">
+			<source :src="url" type="audio/mp4" v-show="play">
 		</video>
 		<div>
 			热门评论
@@ -34,11 +34,15 @@
 		activated() {
 			var id = window.localStorage.getItem('Mvid');
 			this.id = id;
-			this.url = `https://api.itooi.cn/netease/mvUrl?id=${id}&quality=1080`;
+			this.axios({
+				url:`https://autumnfish.cn/mv/url?id=${id}`
+			}).then(res=>{
+				this.url = res.data.data.url;
+			})
 			this.play = true;
 			
-			this.axios({url:`https://api.itooi.cn/netease/comment/mv?id=${id}&page=0&pageSize=30`}).then(res=>{
-				this.list = res.data.data.comments;
+			this.axios({url:`https://autumnfish.cn/comment/mv?id=${id}`}).then(res=>{
+				this.list = res.data.comments;
 			})
 			document.documentElement.scrollTop = document.body.scrollTop = 0;
 		},
@@ -61,13 +65,11 @@
 
 	.box {
 		position: absolute;
-		left: 0;
 		top: 0;
-		z-index: 100;
-		width: 100%;
-		height: 100%;
-		min-height: 100%;
+		width:400px;
+		margin: 0 auto;
 		background: white;
+		z-index: 999;
 	}
 
 	.slide-enter {

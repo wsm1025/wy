@@ -24,13 +24,13 @@
 
 <style scoped>
 	#footer {
-		width: 100%;
+		width:384px;
 		height: 65px;
 		background: white;
 		border-top: 2px #ebe8e3 solid;
 		position: fixed;
-		left: 0;
 		bottom: 0;
+		margin: 10px auto;
 	}
 
 	#footer ul {

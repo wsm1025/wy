@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="app">
 		<keep-alive>
 			<router-view></router-view>
 		</keep-alive>
@@ -34,3 +34,19 @@
 		}
 	}
 </script>
+<style lang="scss">
+	body{
+		width: 400px;
+		height: 100%;
+		margin: 10px auto;
+		background: url(https://api.ixiaowai.cn/api/api.php);
+		z-index: 10;
+	}
+	.app{
+		background-color:white;
+		padding: 10px;
+	}
+	li{
+		list-style: none;
+	}
+</style>

@@ -41,13 +41,12 @@
 			}
 		},
 		activated() {
-			this.axios({url:`https://api.itooi.cn/netease/songList/user?uid=${this.$store.state.music.USERID}`}).then(res=>{
-				this.data =res.data.data;
-      			this.userpic =res.data.data[0].creator.avatarUrl;
-				this.userbg = res.data.data[0].creator.backgroundUrl;
-				this.nickname  = res.data.data[0].creator.nickname;
-				this.nickname  = res.data.data[0].creator.nickname;
-				this.signature = res.data.data[0].creator.signature
+			this.axios({url:`https://autumnfish.cn/user/playlist?uid=${this.$store.state.music.USERID}`}).then(res=>{
+				this.data =res.data.playlist;
+      			this.userpic =res.data.playlist[0].creator.avatarUrl;
+				this.userbg = res.data.playlist[0].creator.backgroundUrl;
+				this.nickname  = res.data.playlist[0].creator.nickname;
+				this.signature = res.data.playlist[0].creator.signature
 			})
 		},
 		methods: {
@@ -82,7 +81,6 @@
 		position: absolute;
 		display: block;
 		top: 0;
-		left: 0;
 		height: 40px;
 		width: 40px;
 		border-radius: 50%;
@@ -114,7 +112,7 @@
 		padding: 8px;
 		position: absolute;
 		top: 10%;
-		left: 30%;
+		left: 45%;
 		border: none;
 	}
 	.user{
@@ -125,6 +123,10 @@
 	.user div p{
 		text-align: center;
 		margin-top: 5px;
+	}
+	.USERSONGLIST{
+		background-color: #00FFFF;
+		height: 1150px;
 	}
 	.USERSONGLIST ul li{
 		list-style: none;

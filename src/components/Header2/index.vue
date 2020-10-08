@@ -35,7 +35,7 @@
 		},
 		mounted() {
 			this.axios({
-				url: 'https://api.itooi.cn/netease/mv/top?pageSize=10&page=0'
+				url: 'https://autumnfish.cn/mv/first?limit=10'
 			}).then(res => {
 				this.mvhotlist = res.data.data;
 			})

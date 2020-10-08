@@ -6,7 +6,7 @@
 				<p @click="set(n.id)">歌曲:{{n.name}}</p>
 				<span v-show="n.mvid>0" class="MVINFO" @click="tomv(n.mvid)" >MV</span>
 			</li>
-			<p style="height: 67px; text-align: center; line-height: 67px;">我也是有底线的啊</p>
+			<p style="height: 67px; text-align: center; line-height: 67px;" @click="close">我也是有底线的啊</p>
 		</ul>
 	</div>
 </template>
@@ -16,10 +16,8 @@
 		name: 'backsong',
 		data() {
 			return {
-				singername: []
+				hidden:true
 			}
-		},
-		mounted() {
 		},
 		methods: {
 			set(id) {
@@ -42,6 +40,11 @@
 				});
 				window.localStorage.setItem('Mvid', id);
 				this.$router.push("/mv/mvdetail");
+			},
+			close(){
+				window.localStorage.removeItem('Backsong')
+				this.$store.state.music.backSong = null
+				this.hidden = false
 			}
 			
 		}
@@ -67,7 +70,9 @@
 		border-radius: 6px;
 		margin-top: 2px;
 	}
-
+	.list li:hover{
+		color: #13CE66;
+	}
 	.list li p {
 		float: left;
 		width: 45%;

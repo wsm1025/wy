@@ -77,26 +77,28 @@
 			},8000)
 		},
 		activated() {
-			var id = window.localStorage.getItem('songId')
-			let URL = `https://api.itooi.cn/netease/url?id=${id}&isRedirect=1`;
+			var id = window.localStorage.getItem('songId') || '1297742167'
+			this.axios({url:`https://autumnfish.cn/song/url?id=${id}`}).then(res=>{
+			let URL	=res.data.data[0].url;
 			window.localStorage.setItem('musicurl', URL);
+			})
 			this.music(URL);
 			
 			this.axios({
 				// url: `/api/song/media?id=${id}`
-				url:`https://api.paugram.com/netease/?id=${id}`
+				url:`https://autumnfish.cn//lyric?id=${id}`
 			}).then(res => {
-				if (res.data.lyric) {
-					this.lyc = wsm(res.data.lyric);
-					this.show = true
-				} else {
+				if(res.data.nolyric == true){
 					this.lyc = ''; //清空数据
 					this.show = false
+				}else{
+					this.lyc = wsm(res.data.lrc.lyric);
+					this.show = true
 				}
 			})
 			
 			this.axios({
-				url: `https://api.vvhan.com/api/music?id=${this.$store.state.music.songId}&type=song&media=netease`
+				url: `https://autumnfish.cn/song/url?id=${this.$store.state.music.songId}`
 			}).then(res => {
 				this.song = res.data
 			})
@@ -146,11 +148,9 @@
 
 	.box {
 		position: absolute;
-		left: 0;
 		top: 0;
-		z-index: 100;
-		width: 100%;
-		min-height: 100%;
+		width:400px;
+		margin: 0 auto;
 		background: white;
 		z-index: 999;
 	}
@@ -214,7 +214,7 @@
 	.jishitiao {
 		display: block;
 		height: 100%;
-		background-color: #000000;
+		background-color: pink;
 	}
 
 	.all {

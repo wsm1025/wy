@@ -23,9 +23,9 @@
 		activated(){
 			this.songlist = [];
 			var listId = window.localStorage.getItem('listId');
-			this.axios({url:`https://api.itooi.cn/netease/songList?id=${listId}&format=1`}).then(res=>{
-				// this.deal(res.data.data.tracks)
-				this.songlist = res.data.data;
+			this.axios({url:`https://autumnfish.cn/playlist/detail?id=${listId}`}).then(res=>{
+				this.deal(res.data.privileges)
+				// this.songlist = res.data.privileges;
 			})
 		},
 		methods:{
@@ -37,17 +37,21 @@
 				window.localStorage.setItem('songId',songId);
 				window.localStorage.setItem('songImg',songImg);
 				this.$router.push("./detail");
+			},
+			deal(data){
+				for(var n in data){
+					this.axios({url:`https://autumnfish.cn/song/detail?ids=${data[n].id}`}).then(res=>{
+						this.songlist.push({
+							singer:res.data.songs[0].ar[0].name,
+							id:res.data.songs[0].id,
+							pic:res.data.songs[0].al.picUrl,
+							name:res.data.songs[0].name
+							})
+					})
+				}
 			}
-			// deal(data){
-			// 	for(var n in data){
-			// 		console.log(data[n].id)
-			// 		this.axios({url:`https://api.paugram.com/netease/?id=${data[n].id}`}).then(res=>{
-			// 			this.songlist.push( res.data);
-			// 		})
-			// 	}
-			// }
 		}
-	}
+		}
 </script>
 
 <style scoped>

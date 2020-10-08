@@ -1,6 +1,6 @@
 const state = {
-	songId :window.localStorage.getItem("songId") || '',
-	songImg : window.localStorage.getItem("songImg")||'http://p1.music.126.net/swcW0FE-__ihfjnJqU22Qg==/109951164696345792.jpg',
+	songId :window.localStorage.getItem("songId") || '1297742167',
+	songImg : window.localStorage.getItem("songImg")||'http://p4.music.126.net/7U5MdVq15v5wK3IA3IT8FQ==/109951165319863126.jpg',
     backSong :JSON.parse(window.localStorage.getItem("Backsong")) || [],
 	MVID: window.localStorage.getItem('Mvid') || '',
 	USERID: window.localStorage.getItem("userId") || '1311290730',

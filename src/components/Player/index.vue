@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<audio loop style="display: none;" @timeupdate="time" ref="audio" :src="this.$store.state.music.URL" />
+		<audio loop style="display: none;" @timeupdate="time" ref="audio" :src="'https://music.163.com/song/media/outer/url?id='+`${this.$store.state.music.songId}`+'.mp3'"/>
+		<!-- $store.state.music.URL报错 -->
 		<div v-show="Playshow" class="selcet">
 			<!-- <span><i class="iconfont icon-shangyishou"></i></span> -->
 			<span @click="reloading"><i class="iconfont icon-zhongxinjiazai"></i></span>
@@ -92,10 +93,9 @@
 		position: fixed;
 		background-color: transparent;
 		display: flex;
-		top: 33%;
-		right: 3%;
-		height: 52px;
-		/* width: 100%; */
+		top: 35%;
+		margin-left:330px ;
+		height: 40px;
 		width: 60px;
 		z-index: 999;
 	}

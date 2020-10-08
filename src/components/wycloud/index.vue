@@ -1,6 +1,6 @@
 <template>
 		<div class="wy">
-			<div v-show="show" style="color: pink; padding: 20px;"><span @click="to()">点击查看用户信息</span><span style="float: right; color: #000000; cursor: pointer;" @click="cancel">X</span></div>
+			<div v-show="show" style="color: pink; padding: 20px;"><span @click="to()">查看作者主页</span><span style="float: right; color: #000000; cursor: pointer;" @click="cancel">X</span></div>
 			<div v-if="loading" style="text-align: center;">热门评论加载中...</div>
 			<div v-else style="width: 100%; height: auto;" >
 				<p class="header" @click="pick(list.id,list.picUrl)">{{list.name}}({{list.auther}})下的留言</p>
@@ -48,7 +48,8 @@
 				this.show = false
 			},
 			to(){
-				this.$router.push("/userinfo") 
+				this.$router.push("/userinfo")
+				window.localStorage.setItem('userId',1311290730)
 			}
 		}
 	}

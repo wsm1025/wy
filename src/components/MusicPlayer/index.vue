@@ -23,7 +23,9 @@
 			// 	this.Playshow = !this.Playshow
 			// },上一首，，下一首
 			jump() {
-				setTimeout(()=>{this.$router.push("/music/detail")},300)
+				setTimeout(()=>{
+					this.$router.push("/music/detail")
+					},300)
 			}
 		}
 	}

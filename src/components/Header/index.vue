@@ -69,7 +69,7 @@
 				this.isShow = !this.isShow;
 			},
 			search(key) {
-				if (key.length==0) {
+				if (key.trim().length==0) {
 					return;
 				} else {
 					this.axios({
@@ -101,7 +101,6 @@
 	.search-text {
 		display: flex;
 		width: 100%;
-		margin-left: 10px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		background-color: #eeeeee;
@@ -135,8 +134,8 @@
 	.getdata {
 		position: absolute;
 		background-color: whitesmoke;
-		top: 8%;
-		width: 96%;
+		margin-top: 45px;
+		width: 376px;
 		height: 170px;
 		z-index: 100;
 		border: 1px dotted #99A9BF;

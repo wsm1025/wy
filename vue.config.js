@@ -11,6 +11,6 @@ module.exports = {
 		// 	// }
 		// }
 	},
-  publicPath: process.env.NODE_ENV === "production" ?  "/home/wy" : "/",
+   publicPath: process.env.NODE_ENV === "production" ?  "/wy" : "./",
   //webpack增加静态页面前缀
 }
