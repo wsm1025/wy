@@ -62,12 +62,12 @@
 
 	.box {
 		position: absolute;
-		left: 0;
 		top: 0;
-		z-index: 100;
-		width: 100%;
-		min-height: 100%;
+		width:375px;
+		height: 670px;
+		margin: 0 auto;
 		background: white;
+		z-index: 999;
 	}
 
 	.slide-enter {
@@ -105,6 +105,7 @@
 		width: 99%;
 		height: 600px;
 		top: 6%;
+		overflow: hidden;
 	}
 	.list li{
 		display: block;

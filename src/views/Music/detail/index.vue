@@ -4,8 +4,8 @@
 		<span class="back"><i class="iconfont icon-fanhui" @click="back"></i></span>
 		<div class="song">
 			<img :src="$store.state.music.songImg" alt="" />
-			<p>{{song.name}}</p>
-			<p>{{song.author}}</p>
+			<!-- <p>{{song.name}}</p>
+			<p>{{song.ar[0].name}}</p> -->
 			<p v-show="tip">因选取网易api,部分音乐暂时不能听</p>
 			<p v-show="tip">图片较大,有时加载也很慢</p>
 			
@@ -16,7 +16,7 @@
 				<li @click="to($event)" style="margin-top: 4px;" v-for="(n,index) in lyc" :title="n[0] |Time" v-show="sss" :key="index"
 				 ref="li">{{n[1]}}</li>
 			</ul>
-			<p v-show="!show">纯音乐,请欣赏</p>
+			<p v-show="!show" style="height: 360px;">纯音乐,请欣赏</p>
 		</div>
 	</div>
 </template>
@@ -29,8 +29,6 @@
 			return {
 				tip:true,
 				song: [],
-				list: [],
-				list1: [],
 				lyc: '',
 				show: true,
 				sss: false,
@@ -39,6 +37,7 @@
 		},
 		watch: {
 			"$store.state.music.TIME": 'cc',
+			"$store.state.music.songImg":'pp'//图片改变时，触发该函数
 		}, //监听数据
 		filters: {
 			Time(data) {
@@ -74,35 +73,8 @@
 		mounted() {
 			setTimeout(()=>{
 				this.tip = false
-			},8000)
-		},
-		activated() {
-			var id = window.localStorage.getItem('songId') || '1297742167'
-			this.axios({url:`https://autumnfish.cn/song/url?id=${id}`}).then(res=>{
-			let URL	=res.data.data[0].url;
-			window.localStorage.setItem('musicurl', URL);
-			})
-			this.music(URL);
-			
-			this.axios({
-				// url: `/api/song/media?id=${id}`
-				url:`https://autumnfish.cn//lyric?id=${id}`
-			}).then(res => {
-				if(res.data.nolyric == true){
-					this.lyc = ''; //清空数据
-					this.show = false
-				}else{
-					this.lyc = wsm(res.data.lrc.lyric);
-					this.show = true
-				}
-			})
-			
-			this.axios({
-				url: `https://autumnfish.cn/song/url?id=${this.$store.state.music.songId}`
-			}).then(res => {
-				this.song = res.data
-			})
-			// console.log(typeof(this.$store.state.music.TIME))
+			},8000);
+			this.pp()
 		},
 		methods: {
 			back() {
@@ -129,6 +101,19 @@
 				var b = this.$store.state.music.TIME;
 				this.width = (((b / a) * 100).toFixed(2))
 			},
+			pp(){
+				this.axios({
+					url:`https://autumnfish.cn/lyric?id=${this.$store.state.music.songId}`
+				}).then(res => {
+					if(res.data.nolyric == true){
+						this.lyc = ''; //清空数据
+						this.show = false
+					}else{
+						this.lyc = wsm(res.data.lrc.lyric);
+						this.show = true
+					}
+				})	
+			},
 			to(x) {
 				var totime = x.target.title;
 				window.localStorage.setItem('totime', totime);
@@ -149,10 +134,11 @@
 	.box {
 		position: absolute;
 		top: 0;
-		width:400px;
+		width:375px;
 		margin: 0 auto;
 		background: white;
 		z-index: 999;
+		overflow-y: hidden;
 	}
 
 	.slide-enter {
@@ -202,7 +188,7 @@
 
 	.ul-lyric {
 		width: 100%;
-		height: 360px;
+		height: 411px;
 		overflow-y: auto;
 	}
 

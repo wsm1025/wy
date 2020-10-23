@@ -30,7 +30,7 @@
 		border-top: 2px #ebe8e3 solid;
 		position: fixed;
 		bottom: 0;
-		margin: 10px auto;
+		margin: 0 auto;
 	}
 
 	#footer ul {

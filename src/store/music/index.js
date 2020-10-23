@@ -4,7 +4,6 @@ const state = {
     backSong :JSON.parse(window.localStorage.getItem("Backsong")) || [],
 	MVID: window.localStorage.getItem('Mvid') || '',
 	USERID: window.localStorage.getItem("userId") || '1311290730',
-	URL: window.localStorage.getItem("musicurl")|| '',
 	TIME: window.localStorage.getItem("time"),
 	totime:window.localStorage.getItem('totime'),
 	duration: window.localStorage.getItem('duration')
@@ -26,9 +25,6 @@ const mutations = {
 	},
 	USER_INFO(state,payload){
 		state.USERID = payload.USERID;
-	},
-	URL_INFO(state,payload){
-		state.URL = payload.URL;
 	},
 	TIME_INFO(state,payload){
 		state.TIME = payload.TIME;

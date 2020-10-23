@@ -36,15 +36,14 @@
 </script>
 <style lang="scss">
 	body{
-		width: 400px;
+		width: 375px;
 		height: 100%;
 		margin: 10px auto;
-		background: url(https://api.ixiaowai.cn/api/api.php);
-		z-index: 10;
+		// background: url(https://api.ixiaowai.cn/api/api.php);
 	}
 	.app{
 		background-color:white;
-		padding: 10px;
+		padding-top: 10px;
 	}
 	li{
 		list-style: none;

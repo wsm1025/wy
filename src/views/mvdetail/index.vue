@@ -66,7 +66,7 @@
 	.box {
 		position: absolute;
 		top: 0;
-		width:400px;
+		width:375px;
 		margin: 0 auto;
 		background: white;
 		z-index: 999;
