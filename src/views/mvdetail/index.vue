@@ -10,7 +10,7 @@
 			<ul class="list">
 				<li v-for="n in list" :key="n.time">
 					<div style="display: flex;">
-						<img :src="n.user.avatarUrl" alt="" />
+						<img :src="n.user.avatarUrl" @click="to(n.user.userId)" alt="" />
 						<span>name:{{n.user.nickname}}</span>
 					</div>
 					<div>saying:{{n.content}}</div>
@@ -43,6 +43,7 @@
 			
 			this.axios({url:`https://autumnfish.cn/comment/mv?id=${id}`}).then(res=>{
 				this.list = res.data.comments;
+				// console.log(res.data)
 			})
 			document.documentElement.scrollTop = document.body.scrollTop = 0;
 		},
@@ -51,6 +52,13 @@
 				this.$router.back();
 				this.url = '';
 				this.play = false;
+			},
+			to(USERID){
+				this.$store.commit('music/USER_INFO', {
+					USERID
+				});
+				window.localStorage.setItem("userId",USERID)
+				this.$router.push("/userinfo")
 			}
 		}
 

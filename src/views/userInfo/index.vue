@@ -4,9 +4,8 @@
 		<p style="text-align: center;">个人信息</p>
 		<div class="USERINFO">
 			<img :src="userbg" alt="" />
-			<input v-show="show" type="text" placeholder="请输入你的Id" @keyup.13="change(USERID)" v-model="USERID"  />
 			<div class="user">
-				<img :src="userpic" @click="Show" alt=""/>
+				<img :src="userpic" alt=""/>
 					<div style="flex: 1; margin-top: 35px;">
 						<p>昵称:{{nickname}}</p>
 						<p>个性签名:{{signature}}</p>
@@ -30,7 +29,6 @@
 		name: 'userinfo',
 		data(){
 			return{
-				show:false,
 				USERID:'',
 				id:'',
 				data:'',
@@ -41,17 +39,22 @@
 			}
 		},
 		activated() {
-			this.axios({url:`https://autumnfish.cn/user/playlist?uid=${this.$store.state.music.USERID}`}).then(res=>{
-				this.data =res.data.playlist;
-      			this.userpic =res.data.playlist[0].creator.avatarUrl;
-				this.userbg = res.data.playlist[0].creator.backgroundUrl;
-				this.nickname  = res.data.playlist[0].creator.nickname;
-				this.signature = res.data.playlist[0].creator.signature
-			})
+			if(window.localStorage.getItem('userId') == '1311290730'){
+				this.user(1311290730)
+			}else{
+				this.user(window.localStorage.getItem('userId'))
+			}
+			
 		},
 		methods: {
-			Show(){
-				this.show = !this.show
+			user(id){
+				this.axios({url:`https://autumnfish.cn/user/playlist?uid=${id}`}).then(res=>{
+					this.data =res.data.playlist;
+					this.userpic =res.data.playlist[0].creator.avatarUrl;
+					this.userbg = res.data.playlist[0].creator.backgroundUrl;
+					this.nickname  = res.data.playlist[0].creator.nickname;
+					this.signature = res.data.playlist[0].creator.signature
+				})
 			},
 			back() {
 				this.$router.back();
@@ -59,13 +62,6 @@
 			to(id){
 				this.$router.push("music/songlist")
 				window.localStorage.setItem('listId',id);
-			},
-			change(USERID){
-				this.$store.commit('music/USER_INFO', {
-					USERID
-				});
-				window.localStorage.setItem("userId",USERID);
-				this.$router.go(0)
 			}
 		}
 	}
@@ -125,8 +121,7 @@
 		margin-top: 5px;
 	}
 	.USERSONGLIST{
-		background-color: #00FFFF;
-		height: 1150px;
+		/* height: 1150px; */
 	}
 	.USERSONGLIST ul li{
 		list-style: none;

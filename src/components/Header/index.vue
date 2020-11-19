@@ -4,7 +4,7 @@
 			<div class="search-text">
 				<img class="img" src="../../../public/search.png" alt="">
 				<input type="text" @keyup.13="search(key)" :placeholder='message' @focusin="yes" v-model="key"
-				 @focusout="wait">
+				 @focusout="wait" ref="input">
 			</div>
 			<div class="search-cancel" v-show="isShow" @click="isShow=!isShow">取消</div>
 			<div v-show="isShow" class="getdata">
@@ -69,6 +69,7 @@
 				this.isShow = !this.isShow;
 			},
 			search(key) {
+				this.$refs.input.blur();//enter之后，取消聚焦
 				if (key.trim().length==0) {
 					return;
 				} else {

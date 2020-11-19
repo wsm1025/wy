@@ -28,7 +28,7 @@
 		watch: {
 			'$route': 'path',
 			"$store.state.music.totime": 'to',
-			"$store.state.music.TIME":'xx'
+			"$store.state.music.TIME": 'xx'
 		},
 		mounted() {
 			this.set();
@@ -37,6 +37,7 @@
 			set() {
 				var _this = this;
 				var a = this.$refs.audio;
+				//此处可用箭头函数
 				a.ondurationchange = function() {
 					window.localStorage.setItem("duration", Number(a.duration.toFixed(2)));
 					var duration = Number(a.duration.toFixed(2));
@@ -62,33 +63,67 @@
 				this.flag = 0;
 				this.stop();
 			},
-			xx(){
+			xx() {
 				var a = window.localStorage.getItem("duration");
 				var b = this.$store.state.music.TIME;
-				if(Number(a)<=Number(b)+1){
+				if (Number(a) <= Number(b) + 1) {
 					this.$refs.audio.pause();
 					this.nextsong()
 				}
 			},
 			nextsong() {
-				let songList = JSON.parse(window.localStorage.getItem('hotmusic'));
-				if (this.list.length == 0) {
+			    var songList = JSON.parse(window.localStorage.getItem('hotmusic'));
+				var wantList = JSON.parse(window.localStorage.getItem("wantplay"));
+				if (wantList.length == 0) {
 					for (let n of songList) {
-						this.list.push(n.id)
+						this.list.unshift(n.id)
+					}
+				} else {
+					this.list = []//当wantplay无结果,播放时选取随机歌曲，但在点击wantplay时，重置list
+					for (let n of wantList) {
+						this.list.unshift(n)
 					}
 				}
+				// console.log(this.list);
 				let randomNumber = Math.floor(Math.random() * this.list.length);
+				window.localStorage.setItem('songId', this.list[randomNumber]);//立即存储
 				this.axios({
 					url: `https://api.vvhan.com/api/music?id=${this.list[randomNumber]}&type=song&media=netease`
 				}).then(res => {
-					let songImg = res.data.cover
-					let songId = this.list[randomNumber]
-					this.$store.commit('music/MUSIC_INFO',{songId,songImg});
-					window.localStorage.setItem('songId',this.list[randomNumber]);
-					window.localStorage.setItem('songImg',songImg);
-					this.flag = 0
-					this.stop()
-					this.$refs.audio.autoplay = true;
+					if (wantList.length) {
+						var musicId = window.localStorage.getItem("songId");
+						// console.log(wantplay[0]);
+						for (var x in wantList) {
+							if (wantList[x] == musicId) {
+								wantList.splice(x, 1)
+								console.log(wantList)
+								window.localStorage.setItem("wantplay", JSON.stringify(wantList))
+							}else{
+								return ;
+							}
+						}
+						let songImg = res.data.cover
+						let songId = this.list[randomNumber]
+						this.$store.commit('music/MUSIC_INFO', {
+							songId,
+							songImg
+						});
+						window.localStorage.setItem('songImg', songImg);
+						this.flag = 0
+						this.stop()
+						this.$refs.audio.autoplay = true;
+					} else {
+						let songImg = res.data.cover
+						let songId = this.list[randomNumber]
+						this.$store.commit('music/MUSIC_INFO', {
+							songId,
+							songImg
+						});
+						window.localStorage.setItem('songImg', songImg);
+						this.flag = 0
+						this.stop()
+						this.$refs.audio.autoplay = true;
+					}
 				})
 			},
 			path() {
@@ -98,11 +133,30 @@
 					// this.show = true
 					this.flag = 0;
 					this.stop();
+					//上面为detail暂停并返回再进入不会播放
 					this.$refs.audio.autoplay = true;
+					// console.log(this.$refs.audio.paused)
+					//检测音频是否在播放
+					if (this.$refs.audio.paused == true) {
+						this.show = false
+						this.flag = 0
+					} else {
+						this.show = true
+						this.flag = 1
+					}
 				}
 				if (this.$route.path == '/mv' || this.$route.path == '/mv/mvdetail') {
 					this.show = false;
 					this.flag = 0; //mv到音乐界面，需要点击播放两次解决方法
+				}
+			},
+			checkAudio() {
+				if (this.$refs.audio.paused == true) {
+					this.show = false
+					this.flag = 0
+				} else {
+					this.show = true
+					this.flag = 1
 				}
 			},
 			time() {
@@ -111,6 +165,7 @@
 				this.$store.commit('music/TIME_INFO', {
 					TIME
 				}); //加{}
+				this.checkAudio()
 			},
 			to() {
 				this.$refs.audio.currentTime = this.$store.state.music.totime
@@ -129,7 +184,7 @@
 		position: fixed;
 		background-color: transparent;
 		display: flex;
-		top: 35%;
+		top: 30%;
 		margin-left: 240px;
 		height: 30px;
 		width: 120px;

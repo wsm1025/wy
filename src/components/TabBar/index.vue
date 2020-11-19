@@ -1,9 +1,11 @@
 <template>
-	<footer id="footer">
+	<footer v-if="ISshow" id="footer" >
 		<ul>
 			<router-link tag="li" to="/music" active-class="myactive"><i class="iconfont icon-music"></i>
 				<p>音乐</p>
 			</router-link>
+			<li style="line-height: 40px;">想听
+			</li>
 			<router-link tag="li" to="/mv" active-class="myactive"><i class="iconfont icon-shexiangji"></i>
 				<p>MV</p>
 			</router-link>
@@ -16,9 +18,29 @@
 	import MusicPlayer from '@/components/MusicPlayer'
 	export default {
 		name: 'tabbar',
+		data(){
+			return{
+				ISshow:true
+			}
+		},
 		components:{
 			MusicPlayer
 		},
+		watch:{
+			'$route':'none'
+		},
+		mounted() {
+			this.none()
+		},
+		methods:{
+			none(){
+				if(this.$route.path == '/music/detail'|| this.$route.path == '/music/songlist'){//适应设备
+					this.ISshow = false
+				}else{
+					this.ISshow = true
+				}
+			}
+		}
 	}
 </script>
 

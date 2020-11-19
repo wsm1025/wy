@@ -8,9 +8,9 @@
 			<p>{{song.ar[0].name}}</p> -->
 			<p v-show="tip">因选取网易api,部分音乐暂时不能听</p>
 			<p v-show="tip">图片较大,有时加载也很慢</p>
-			
+
 			<div class="all"><span>{{this.$store.state.music.TIME | change }}</span>
-				<p style="flex: 1;height:12px;margin-top:2px;"><span class="jishitiao" :style="'width:'+width+'%'"></span></p><span>{{$store.state.music.duration | change }}</span>
+				<p class="jishitiao_p" @click="Todata"><span class="jishitiao" :style="'width:'+width+'%'"></span></p><span>{{$store.state.music.duration | change }}</span>
 			</div>
 			<ul class="ul-lyric" v-show="show" ref="ul">
 				<li @click="to($event)" style="margin-top: 4px;" v-for="(n,index) in lyc" :title="n[0] |Time" v-show="sss" :key="index"
@@ -27,17 +27,17 @@
 		name: 'musicbox',
 		data() {
 			return {
-				tip:true,
+				tip: true,
 				song: [],
 				lyc: '',
 				show: true,
-				sss: false,
+				sss: false, //测试用
 				width: 0
 			}
 		},
 		watch: {
 			"$store.state.music.TIME": 'cc',
-			"$store.state.music.songImg":'pp'//图片改变时，触发该函数
+			"$store.state.music.songImg": 'pp' //图片改变时，触发该函数
 		}, //监听数据
 		filters: {
 			Time(data) {
@@ -61,9 +61,9 @@
 					}
 				} else {
 					var b = Math.round(data);
-					if(b<10){
+					if (b < 10) {
 						var c = '00' + ':' + '0' + b
-					}else{
+					} else {
 						var c = '00' + ':' + b
 					}
 				}
@@ -71,12 +71,22 @@
 			}
 		},
 		mounted() {
-			setTimeout(()=>{
+			//读取本地配置
+			this.getlocalData();
+			setTimeout(() => {
 				this.tip = false
-			},8000);
+			}, 4000);
 			this.pp()
 		},
 		methods: {
+			getlocalData() {
+				const totime = window.localStorage.getItem("time")
+				const duration = window.localStorage.getItem("duration")
+				this.width = ((totime / duration) * 100).toFixed(2)
+				this.$store.commit('music/TOTIME', {
+					totime
+				}); //加{} 
+			},
 			back() {
 				this.$router.back();
 			},
@@ -84,6 +94,25 @@
 				this.$store.commit('music/URL_INFO', {
 					URL
 				}); //加{}
+			},
+			Todata(e) { //处理点击进度事件
+				// console.log(e.offsetX,e.offsetY)
+				// console.log(e.target.nodeName )
+				//防止点击到外面出错
+				const duration = window.localStorage.getItem("duration");
+				// if(e.target.nodeName == 'P'){
+				this.width = ((e.offsetX / 302) * 100).toFixed(2);
+				//301会置空
+				// console.log(this.width)
+				const totime = ((this.width * duration) / 100).toFixed(2)
+				// window.localStorage.setItem("time",totime)这里不需要保存此数据用store同步		
+				//直接操作totime
+				window.localStorage.setItem("totime", totime)
+				this.$store.commit('music/TOTIME', {
+					totime
+				}); //加{}
+				// }
+
 			},
 			cc() {
 				var x = this.$refs.ul.childNodes;
@@ -101,18 +130,30 @@
 				var b = this.$store.state.music.TIME;
 				this.width = (((b / a) * 100).toFixed(2))
 			},
-			pp(){
+			pp() {
+				this.del()
 				this.axios({
-					url:`https://autumnfish.cn/lyric?id=${this.$store.state.music.songId}`
+					url: `https://autumnfish.cn/lyric?id=${this.$store.state.music.songId}`
 				}).then(res => {
-					if(res.data.nolyric == true){
+					if (!(res.data.hasOwnProperty("lrc"))) { //检测数据是否有该字段
 						this.lyc = ''; //清空数据
 						this.show = false
-					}else{
+					} else {
 						this.lyc = wsm(res.data.lrc.lyric);
 						this.show = true
 					}
-				})	
+				})
+			},
+			del() {
+				//检测当前播放的是否为想听的//待修改
+				const wantplay = JSON.parse(window.localStorage.getItem('wantplay'));
+				const musicId = window.localStorage.getItem("songId");
+				for (var x in wantplay) {
+					if (wantplay[x] == musicId) {
+						wantplay.splice(x, 1)
+						window.localStorage.setItem("wantplay", JSON.stringify(wantplay))
+					}
+				}
 			},
 			to(x) {
 				var totime = x.target.title;
@@ -134,7 +175,7 @@
 	.box {
 		position: absolute;
 		top: 0;
-		width:375px;
+		width: 375px;
 		margin: 0 auto;
 		background: white;
 		z-index: 999;
@@ -197,14 +238,30 @@
 		list-style: none;
 	}
 
+	.jishitiao_p {
+		flex: 1;
+		height: 12px;
+		margin-top: 2px;
+		border: 0.5px solid black;
+		box-sizing: content-box;
+		border-radius: 10px;
+	}
+
 	.jishitiao {
 		display: block;
 		height: 100%;
 		background-color: pink;
+		border-radius: 0.625rem;
+		box-sizing: border-box;
 	}
 
 	.all {
 		display: flex;
 		justify-content: space-between;
+		padding: 15px 0;
+	}
+
+	img {
+		border-radius: 10%;
 	}
 </style>

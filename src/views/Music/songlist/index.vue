@@ -23,7 +23,7 @@
 		activated(){
 			this.songlist = [];
 			var listId = window.localStorage.getItem('listId');
-			this.axios({url:`https://autumnfish.cn/playlist/detail?id=${listId}`}).then(res=>{
+			this.axios.get(`https://autumnfish.cn/playlist/detail?id=${listId}`).then(res=>{
 				this.deal(res.data.privileges)
 				// this.songlist = res.data.privileges;
 			})
@@ -103,7 +103,6 @@
 	.list{
 		position: absolute;
 		width: 99%;
-		height: 600px;
 		top: 6%;
 		overflow: hidden;
 	}
